@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <title>智慧医疗云HIS</title>
+    <meta charset="UTF-8">
+    <meta http-equiv='X-UA-Compatible' content='IE=EDGE'/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <link rel="stylesheet" href="../dist/main.css">
+    <link rel="stylesheet" name="theme" href="">
+    <link rel="stylesheet" name="icon" href="//at.alicdn.com/t/font_776663_55el2h5pqna.css">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    
+    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div class="lock-screen-back" id="lock_screen_back"></div>
+    <script type="text/javascript" src="../dist/vender-base.js"></script>
+    <script type="text/javascript" src="../dist/vender-exten.js"></script>
+    <script type="text/javascript" src="../dist/main.js"></script>
+</body>
+<script type="text/javascript">
+    console.log('测试' + returnCitySN["cip"] + ',' + returnCitySN["cname"])
+    sessionStorage.setItem("getIp", JSON.stringify(returnCitySN["cip"]))
+</script>
+
+</html>
