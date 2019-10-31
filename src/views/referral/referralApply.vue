@@ -1,354 +1,293 @@
 <template>
-  <div>
-    <Button @click='clickHeight'>点击改变高度</Button>
-    <p :class="test?'aaa':'bbb'">
-      <Input v-model="value"
-             placeholder="Enter something..."
-             style="width: 300px" />
-      <Input v-model="value"
-             placeholder="Enter something..."
-             style="width: 300px" />
-      <Input v-model="value"
-             placeholder="Enter something..."
-             style="width: 300px" />
-      <Input v-model="value"
-             placeholder="Enter something..."
-             style="width: 300px" />
-      <Input v-model="value"
-             placeholder="Enter something..."
-             style="width: 300px" />
-      <Input v-model="value"
-             placeholder="Enter something..."
-             style="width: 300px" />
-      <Input v-model="value"
-             placeholder="Enter something..."
-             style="width: 300px" />
-      <Input v-model="value"
-             placeholder="Enter something..."
-             style="width: 300px" />
-      <Input v-model="value"
-             placeholder="Enter something..."
-             style="width: 300px" />
-      <Input v-model="value"
-             placeholder="Enter something..."
-             style="width: 300px" />
-    </p>
-
-    <Input v-model="value"
-           placeholder="Enter something..."
-           style="width: 300px;margin-top:30px" />
-    <h1>测试的页面</h1>
-    <Table :columns="columns"
-           :data="data">
-      <template slot-scope="{ row, index }"
-                slot="name">
-        <Input type="text"
-               v-model="editName"
-               v-if="editIndex === index" />
-        <span v-else>{{ row.name }}</span>
-      </template>
-
-      <template slot-scope="{ row, index }"
-                slot="age">
-        <Input type="text"
-               v-model="editAge"
-               v-if="editIndex === index" />
-        <span v-else>{{ row.age }}</span>
-      </template>
-
-      <template slot-scope="{ row, index }"
-                slot="birthday">
-        <Input type="text"
-               v-model="editBirthday"
-               v-if="editIndex === index" />
-        <span v-else>{{ (row.birthday) }}</span>
-      </template>
-
-      <template slot-scope="{ row, index }"
-                slot="address">
-        <Input type="text"
-               v-model="editAddress"
-               v-if="editIndex === index" />
-        <span v-else>{{ row.address }}</span>
-      </template>
-
-      <template slot-scope="{ row, index }"
-                slot="action">
-        <div v-if="editIndex === index">
-          <Button @click="handleSave(index)"
-                  type="primary">保存</Button>
-          <Button @click="editIndex = -1"
-                  style="margin-left:10px">取消</Button>
-        </div>
-        <div v-else>
-          <Tooltip placement="top"
-                   theme='light'
-                   content="操作">
-            <Icon @click="handleEdit(row, index)"
-                  type="ios-brush-outline" />
-          </Tooltip>
-        </div>
-      </template>
-    </Table>
-    <Button type="primary"
-            @click="download">下载</Button>
-
-    <div style="margin-top:20pox">
-      <Form ref="formValidate"
-            :model="formValidate"
-            :rules="ruleValidate"
-            :label-width="80">
-        <FormItem label="Name"
-                  prop="name">
-          <Input v-model="formValidate.name"
-                 placeholder="Enter your name" />
-        </FormItem>
-        <FormItem label="E-mail"
-                  prop="mail">
-          <Input v-model="formValidate.mail"
-                 placeholder="Enter your e-mail" />
-        </FormItem>
-        <FormItem label="City"
-                  prop="city">
-          <Select v-model="formValidate.city"
-                  placeholder="Select your city">
-            <Option value="beijing">New York</Option>
-            <Option value="shanghai">London</Option>
-            <Option value="shenzhen">Sydney</Option>
-          </Select>
-        </FormItem>
-        <FormItem label="Date">
-          <Row>
-            <i-Col span="11">
-              <FormItem prop="date">
-                <DatePicker type="date"
-                            placeholder="Select date"
-                            v-model="formValidate.date"></DatePicker>
-              </FormItem>
-            </i-Col>
-            <i-Col span="2"
-                   style="text-align: center">-</i-Col>
-            <i-Col span="11">
-              <FormItem prop="time">
-                <TimePicker type="time"
-                            placeholder="Select time"
-                            v-model="formValidate.time"></TimePicker>
-              </FormItem>
-            </i-Col>
-          </Row>
-        </FormItem>
-        <FormItem label="Gender"
-                  prop="gender">
-          <RadioGroup v-model="formValidate.gender">
-            <Radio label="male">Male</Radio>
-            <Radio label="female">Female</Radio>
-          </RadioGroup>
-        </FormItem>
-        <FormItem label="Hobby"
-                  prop="interest">
-          <CheckboxGroup v-model="formValidate.interest">
-            <Checkbox label="Eat"></Checkbox>
-            <Checkbox label="Sleep"></Checkbox>
-            <Checkbox label="Run"></Checkbox>
-            <Checkbox label="Movie"></Checkbox>
-          </CheckboxGroup>
-        </FormItem>
-        <FormItem label="Desc"
-                  prop="desc">
-          <Input v-model="formValidate.desc"
-                 type="textarea"
-                 :autosize="{minRows: 2,maxRows: 5}"
-                 placeholder="Enter something..." />
-        </FormItem>
-        <FormItem>
-          <Button type="primary"
-                  @click="handleSubmit('formValidate')">Submit</Button>
-          <Button @click="handleReset('formValidate')"
-                  style="margin-left: 8px">Reset</Button>
-        </FormItem>
-      </Form>
+  <div class="referralApply">
+    <!-- 基础模板 -->
+    <ul>
+      <li>
+        <label class="lableClass">病区</label>
+        <Select v-model="wardDeptId"
+                filterable
+                @on-change='getApplyList'
+                style='width: 150px'>
+          <Option v-for="(item) in wardDeptArr"
+                  :value="item.deptId"
+                  :key="item.deptId">{{ item.deptName }}</Option>
+        </Select>
+      </li>
+      <li>
+        <label class="lableClass">时间</label>
+        <DatePicker v-model='timeDat'
+                    format='yyyy-MM-dd HH:mm:ss'
+                    type='datetimerange'
+                    placeholder='请选择时间'
+                    style='width: 320px'></DatePicker>
+      </li>
+      <li>
+        <label class="lableClass">住院号</label>
+        <Input v-model="wardDeptId"
+               @on-enter='getApplyList'
+               placeholder='请输入住院号'
+               style='width: 150px' />
+        <Button type="primary"
+                @click="getApplyList"
+                style="margin-left:5px"
+                icon="ios-search">查询</Button>
+      </li>
+    </ul>
+    <div class="noBorder"
+         style="margin-top:10px">
+      <Table disabled-hover
+             highlight-row
+             :height="tableHeight"
+             ref="table"
+             stripe
+             :loading="orderLoading.tableLoding"
+             :columns="applyTable.tableColumns"
+             :data="applyTable.tableData"></Table>
     </div>
+    <div style="margin: 25px 0;float:right">
+      <PageSizer @Page="changPage"
+                 :tabpage="totalPage"
+                 @pageNum="changPageNum"> </PageSizer>
+    </div>
+    <!-- 修改的弹框 -->
+    <Modal v-model="modalModify.isModal"
+           width="550"
+           :closable="false"
+           :mask-closable="false">
+      <Row>
+        <i-Col span="12">
+          <label class="lableClass">
+            <span>*</span>床号</label>
+          <Input v-model.trim="modalModify.bedNo"
+                 placeholder="请输入床号"
+                 style="width:144px" />
+        </i-Col>
+        <i-Col span="12">
+          <label class="lableClass">
+            <span>*</span>病房号</label>
+          <Input v-model.trim="modalModify.wardRoomNo"
+                 placeholder="请输入病房号"
+                 style="width:144px" />
+        </i-Col>
+      </Row>
+      <div slot="footer">
+        <Button type="text"
+                @click="modalModify.isModal=false">取消</Button>
+        <Button type="primary"
+                :loading="orderLoading.loadingSave"
+                @click="ModifySave">保存</Button>
+      </div>
+    </Modal>
+    <!-- 删除的弹框 -->
+    <comfirmDeletion :show="showModal.showDel"
+                     :title="showModal.delTitle"
+                     :msg="showModal.delMsg"
+                     :loading="orderLoading.loadingDel"
+                     @close="showModal.showDel=false"
+                     @ok="sureDel" />
   </div>
 </template>
 <script>
-import { isObject } from '@/libs/util'
+import util from '@/libs/util'
+import comfirmDeletion from '@/views/components/confirmDeletion.vue'
+import PageSizer from '@/views/components/PageSizer.vue'
 export default {
-  name: 'newMange',
+  name: 'referralApply',
+  components: {
+    comfirmDeletion,
+    PageSizer
+  },
   data () {
     return {
-      test: 100,
-      value: '',
-      columns: [
-        {
-          title: '姓名',
-          slot: 'name'
-        },
-        {
-          title: '年龄',
-          slot: 'age'
-        },
-        {
-          title: '出生日期',
-          slot: 'birthday'
-        },
-        {
-          title: '地址',
-          slot: 'address'
-        },
-        {
-          title: '操作',
-          slot: 'action'
-        }
-      ],
-      data: [
-        {
-          name: '王小明',
-          age: 18,
-          birthday: '2019-10-10',
-          address: '北京市朝阳区芍药居'
-        },
-        {
-          name: '张小刚',
-          age: 25,
-          birthday: '1999-10-20',
-          address: '北京市海淀区西二旗'
-        },
-        {
-          name: '李小红',
-          age: 30,
-          birthday: '2000-10-30',
-          address: '上海市浦东新区世纪大道'
-        },
-        {
-          name: '周小伟',
-          age: 26,
-          birthday: '1998-06-03',
-          address: '深圳市南山区深南大道'
-        }
-      ],
-      editIndex: -1,  // 当前聚焦的输入框的行数
-      editName: '',  // 第一列输入框，当然聚焦的输入框的输入内容，与 data 分离避免重构的闪烁
-      editAge: '',  // 第二列输入框
-      editBirthday: '',  // 第三列输入框
-      editAddress: '',  // 第四列输入框
-      formValidate: {
-        name: '',
-        mail: '',
-        city: '',
-        gender: '',
-        interest: [],
-        date: '',
-        time: '',
-        desc: ''
+      tableHeight: 0,
+      totalPage: 1,//分页的总页数
+      wardDeptId: '',
+      wardDeptArr: [],//下拉框
+      timeDat: [new Date().format('yyyy-MM-dd 00:00:00'), new Date().format('yyyy-MM-dd 23:59:59')],
+      orderLoading: {
+        tableLoding: false,
+        loadingDel: false,
+        loadingSave: false
       },
-      ruleValidate: {
-        name: [
-          { required: true, message: 'The name cannot be empty', trigger: 'blur' }
+      applyTable: {
+        tableColumns: [
+          {
+            title: '床号',
+            align: 'center',
+            key: 'bedNo'
+          },
+          {
+            title: '病房号',
+            align: 'center',
+            key: 'wardRoomNo'
+          },
+          {
+            title: '床位等级',
+            key: 'bedLevelName'
+          },
+          {
+            title: '编制等级',
+            key: 'bedAuthorizName'
+          },
+          {
+            title: '使用情况',
+            align: 'center',
+            key: 'bedState'
+          },
+          {
+            title: '床位护士',
+            key: 'nurseName'
+          },
+          {
+            title: '排序号',
+            align: 'right',
+            key: 'serialNumber'
+          },
+          {
+            title: '启用状态',
+            align: 'center',
+            key: 'stopFlag_1'
+          },
+          {
+            title: '操作',
+            key: 'action',
+            align: 'center',
+            render: (h, params) => {
+              return h('div', [
+                h(
+                  'Poptip',
+                  {
+                    props: {
+                      trigger: 'hover',
+                      placement: 'top'
+                    }
+                  },
+                  [
+                    h('i', {
+                      class: util.icon.modifyNew,
+                      on: {
+                        click: () => {
+                          this.modalModify.isModal = true
+                        }
+                      }
+                    }),
+                    h(
+                      'div',
+                      {
+                        slot: 'content'
+                      },
+                      '修改'
+                    )
+                  ]
+                ),
+
+                h(
+                  'Poptip',
+                  {
+                    props: {
+                      trigger: 'hover',
+                      placement: 'top'
+                    }
+                  },
+                  [
+                    h('i', {
+                      class: util.icon.delete,
+                      on: {
+                        click: () => {
+                          this.showModal.showDel = true
+                          this.showModal.delTitle = '删除'
+                          this.showModal.delMsg = '确认删除【' + params.row.bedNo + '】么？'
+                        }
+                      }
+                    }),
+                    h(
+                      'div',
+                      {
+                        slot: 'content'
+                      },
+                      '删除'
+                    )
+                  ]
+                )
+              ]);
+            }
+          }
         ],
-        mail: [
-          { required: true, message: 'Mailbox cannot be empty', trigger: 'blur' },
-          { type: 'email', message: 'Incorrect email format', trigger: 'blur' }
-        ],
-        city: [
-          { required: true, message: 'Please select the city', trigger: 'change' }
-        ],
-        gender: [
-          { required: true, message: 'Please select gender', trigger: 'change' }
-        ],
-        interest: [
-          { required: true, type: 'array', min: 1, message: 'Choose at least one hobby', trigger: 'change' },
-          { type: 'array', max: 2, message: 'Choose two hobbies at best', trigger: 'change' }
-        ],
-        date: [
-          { required: true, type: 'date', message: 'Please select the date', trigger: 'change' }
-        ],
-        time: [
-          { required: true, type: 'string', message: 'Please select time', trigger: 'change' }
-        ],
-        desc: [
-          { required: true, message: 'Please enter a personal introduction', trigger: 'blur' },
-          { type: 'string', min: 20, message: 'Introduce no less than 20 words', trigger: 'blur' }
+        tableData: [
+          {
+            bedNo: 5
+          }
         ]
       },
-      someObject: {
-        some: '这是啥',
-        somebb: '你猜这是啥'
+      // 删除的弹框
+      showModal: {
+        showAddOrModify: false,
+        showDel: false,
+        delMsg: '',//可灵活配置文字
+        delTitle: '',//删除的头部文字
+      },
+      // 修改的弹框
+      modalModify: {
+        isModal: false,
+        bedNo: '',
+        wardRoomNo: ''
       }
     }
   },
+  mounted () {
+    // 设置表格高度 
+    this.tableHeight = window.innerHeight - this.$refs.table.$el.offsetTop - 160
+  },
   methods: {
-    download () {
-      const url = "文件地址"
-      axios.get(url, {
-        responseType: 'blob'
-      }).then(res => {
-        let blob = new Blob([res.data])
-        let downloadElement = document.createElement('a')
-        let href = window.URL.createObjectURL(blob); //创建下载的链接
-        downloadElement.href = href;
-        downloadElement.download = `new name`; //下载后文件名
-        document.body.appendChild(downloadElement);
-        downloadElement.click(); //点击下载
-        document.body.removeChild(downloadElement); //下载完成移除元素
-        window.URL.revokeObjectURL(href); //释放blob对象
-      })
+    // 获取查询的列表
+    getApplyList () {
+      let params = {
+        deptType: 2,
+        userId: this.$store.state.userInfoObj.userId,
+        hospitalId: this.$store.state.userInfoObj.hospitalId
+      }
+      this.$store.dispatch('', params).then(res => {
+        if (res.data.code == 200) {
+          this.applyTable.tableData = res.data.data.list;
+          this.totalPage = res.data.data.pages  //获取总页数
+        } else {
+          util.showMsg(this, { diy: res.data.message });
+        }
+      });
+    },
+    // 翻页的时候触发
+    changPage (Page) {
+      this.page = Page
+      // 获取的list
+      this.getApplyList()
+    },
+    //切换每页多少条
+    changPageNum (val) {
+      this.page = 1
+      this.pageSize = val
+      this.totalPage = ''
+      this.showTables()
+    },
+    // 删除的确认
+    sureDel () {
 
     },
-    handleEdit (row, index) {
-      this.editName = row.name;
-      this.editAge = row.age;
-      this.editAddress = row.address;
-      this.editBirthday = row.birthday;
-      this.editIndex = index;
-    },
-    handleSave (index) {
-      this.data[index].name = this.editName;
-      this.data[index].age = this.editAge;
-      this.data[index].birthday = this.editBirthday;
-      this.data[index].address = this.editAddress;
-      this.editIndex = -1;
-    },
-    getBirthday (birthday) {
-      const date = new Date(parseInt(birthday));
-      const year = date.getFullYear();
-      const month = date.getMonth() + 1;
-      const day = date.getDate();
-      return `${year}-${month}-${day}`;
-    },
-    // form表单的
-    handleSubmit (name) {
-      this.$refs[name].validate((valid) => {
-        if (valid) {
-          this.$Message.success('Success!');
-        } else {
-          this.$Message.error('请完善信息');
-        }
-      })
-    },
-    // form表单重置的
-    handleReset (name) {
-      this.$refs[name].resetFields();
-    },
-    clickHeight () {
-      if (isObject(this.someObject)) {
-        debugger
-      }
-      this.test = !this.test
-      this.someObject = Object.assign({}, this.someObject, { a: '对象1', b: '对象2' })
-      console.log(this.someObject)
+    //修改的保存接口
+    ModifySave () {
+
     }
   },
 }
 </script>
 <style lang="less" scoped>
-.aaa {
-  width: 500px;
-  height: 100px;
-  border: 2px solid red;
-  overflow: hidden;
-}
-.bbb {
-  width: 500px;
-  border: 2px solid red;
+.referralApply {
+  height: 100%;
+  ul {
+    display: flex;
+    justify-content: flex-start;
+    li {
+      margin-right: 20px;
+    }
+  }
 }
 </style>

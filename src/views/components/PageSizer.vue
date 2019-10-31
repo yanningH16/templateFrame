@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: 'page1',
+  name: 'PageSizer',
   data () {
     return {
       total: 1,//数据总数	
@@ -45,7 +45,7 @@ export default {
 </script>
 <style>
 .page1Test .ivu-page-options-sizer {
-  width: 80px;
+  width: 90px;
 }
 .page1Test .ivu-select-dropdown {
   margin-left: 43px;

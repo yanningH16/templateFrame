@@ -4,7 +4,7 @@
          :mask-closable="false"
          @on-visible-change="close">
     <p slot="header"
-       style="color:#f60;text-align:center">
+       style="color:#ff3341;text-align:center">
       <Icon type="information-circled"></Icon>
       <span>{{title}}</span>
     </p>

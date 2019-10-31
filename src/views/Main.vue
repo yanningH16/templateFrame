@@ -86,7 +86,7 @@
     <div class="single-page-con"
          :style="{left: shrink?'60px':'200px'}">
       <div class="single-page"
-           style="height:100%;margin:0;position:relative;padding-top:10px">
+           style="height:100%;margin:0;position:relative;padding:20px">
         <!-- 路由渲染的右侧所有数据的地方在这 包含着缓存数据 -->
         <keep-alive :include="cachePage">
           <router-view></router-view>

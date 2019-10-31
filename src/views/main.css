@@ -251,10 +251,6 @@
 .main-header-con {
   box-shadow: none;
 }
-.ivu-table td,
-.ivu-table th {
-  padding: 0 8px;
-}
 .ivu-form .ivu-form-item-label {
   padding-top: 5px;
   text-align: left;
@@ -276,4 +272,71 @@
 }
 .iconfont {
   cursor: pointer;
+}
+.ivu-dropdown-rel a {
+  color: #2db7f5;
+}
+.ivu-input[disabled],
+fieldset[disabled],
+.ivu-input-number-input[disabled] {
+  color: #515a6e !important;
+}
+.noBorder {
+  border-top: 1px solid #e9e9e9;
+  border-left: 1px solid #e9e9e9;
+  border-right: 1px solid #e9e9e9;
+}
+.app-main {
+  width: 100%;
+  height: 100%;
+}
+.ivu-poptip-popper {
+  min-width: 70px !important;
+}
+.ivu-tabs {
+  height: 40px !important;
+}
+.ivu-select-input[disabled] {
+  -webkit-text-fill-color: black !important ;
+}
+.ivu-page-simple .ivu-page-simple-pager input {
+  width: 45px !important;
+}
+.ivu-table-cell {
+  padding: 0 8px !important;
+}
+/* 新版需要改的地方有这个  表格的字体大小 */
+.ivu-table {
+  font-size: 14px;
+}
+.ivu-form .ivu-form-item-label {
+  font-size: 14px;
+}
+.ivu-tree ul {
+  font-size: 14px;
+}
+.sidebar-menu-con ::-webkit-scrollbar {
+  width: 6px;
+  background-color: transparent;
+}
+.sidebar-menu-con ::-webkit-scrollbar-thumb {
+  background-color: #2db7f5;
+  border-radius: 3px;
+}
+/* 全局icon图标的颜色修改 rgb(191, 238, 153) */
+.ivu-poptip-rel i {
+  color: #2db7f5;
+  font-size: 16px;
+  margin-right: 10px;
+}
+.lableClass {
+  text-align: left;
+  margin-right: 10px;
+  width: 80px;
+}
+.lableClass span {
+  color: #f00;
+  font-size: 16px;
+  margin-right: 4px;
+  vertical-align: -webkit-baseline-middle;
 }

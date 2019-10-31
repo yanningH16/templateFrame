@@ -127,6 +127,7 @@ export default {
 </script>
 
 <style>
+@import "./styles/reset.less";
 html,
 body {
   width: 100%;
@@ -134,47 +135,5 @@ body {
   background: #f0f0f0;
   overflow: hidden;
 }
-.app-main {
-  width: 100%;
-  height: 100%;
-}
-.ivu-poptip-popper {
-  min-width: 70px !important;
-}
-.ivu-tabs {
-  height: 40px !important;
-}
-.ivu-select-input[disabled] {
-  -webkit-text-fill-color: black !important ;
-}
-.ivu-page-simple .ivu-page-simple-pager input {
-  width: 45px !important;
-}
-.ivu-table-cell {
-  padding: 0 8px !important;
-}
-/* 新版需要改的地方有这个  表格的字体大小 */
-.ivu-table {
-  font-size: 14px;
-}
-.ivu-form .ivu-form-item-label {
-  font-size: 14px;
-}
-.ivu-tree ul {
-  font-size: 14px;
-}
-.sidebar-menu-con ::-webkit-scrollbar {
-  width: 6px;
-  background-color: transparent;
-}
-.sidebar-menu-con ::-webkit-scrollbar-thumb {
-  background-color: #2db7f5;
-  border-radius: 3px;
-}
-/* 全局icon图标的颜色修改 rgb(191, 238, 153) */
-.ivu-poptip-rel i {
-  color: #2db7f5;
-  font-size: 16px;
-  margin-right: 10px;
-}
+
 </style>
